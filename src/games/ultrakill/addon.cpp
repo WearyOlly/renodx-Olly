@@ -23,7 +23,7 @@ renodx::mods::shader::CustomShaders custom_shaders = {
     // CustomShaderEntry(0x00000000),
     // CustomSwapchainShader(0x00000000),
     // BypassShaderEntry(0x00000000),
-    // __ALL_CUSTOM_SHADERS
+    __ALL_CUSTOM_SHADERS
 };
 
 ShaderInjectData shader_injection;
