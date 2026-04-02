@@ -402,8 +402,16 @@ BOOL APIENTRY DllMain(HMODULE h_module, DWORD fdw_reason, LPVOID lpv_reserved) {
     case DLL_PROCESS_ATTACH:
       if (!reshade::register_addon(h_module)) return FALSE;
 
-      renodx::mods::swapchain::use_resource_cloning = true;
-      renodx::mods::swapchain::swap_chain_proxy_shaders = {
+      if (!initialized) {
+        renodx::mods::shader::force_pipeline_cloning = true;
+        renodx::mods::shader::expected_constant_buffer_space = 50;
+        renodx::mods::shader::expected_constant_buffer_index = 13;
+        renodx::mods::shader::allow_multiple_push_constants = true;
+
+        renodx::mods::swapchain::expected_constant_buffer_index = 13;
+        renodx::mods::swapchain::expected_constant_buffer_space = 50;
+        renodx::mods::swapchain::use_resource_cloning = true;
+        renodx::mods::swapchain::swap_chain_proxy_shaders = {
             {
                 reshade::api::device_api::d3d11,
                 {
@@ -420,34 +428,53 @@ BOOL APIENTRY DllMain(HMODULE h_module, DWORD fdw_reason, LPVOID lpv_reserved) {
             },
         };
 
-      // Always upgrade first of format
-      renodx::mods::swapchain::use_resource_cloning = true;
-      renodx::mods::swapchain::swap_chain_upgrade_targets.push_back({
+        {
+          auto* setting = new renodx::utils::settings::Setting{
+              .key = "SwapChainEncoding",
+              .binding = &shader_injection.swap_chain_encoding,
+              .value_type = renodx::utils::settings::SettingValueType::INTEGER,
+              .default_value = 4.f,
+              .label = "Encoding",
+              .section = "Display Output",
+              .labels = {"None", "SRGB", "2.2", "2.4", "HDR10", "scRGB"},
+              .is_enabled = []() { return shader_injection.tone_map_type >= 1; },
+              .on_change_value = [](float previous, float current) {
+                bool is_hdr10 = current == 4;
+                shader_injection.swap_chain_encoding_color_space = (is_hdr10 ? 1.f : 0.f);
+                // return void
+              },
+              .is_global = true,
+              .is_visible = []() { return current_settings_mode >= 2; },
+          };
+          renodx::utils::settings::LoadSetting(renodx::utils::settings::global_name, setting);
+          bool is_hdr10 = setting->GetValue() == 4;
+          renodx::mods::swapchain::SetUseHDR10(is_hdr10);
+          renodx::mods::swapchain::use_resize_buffer = setting->GetValue() < 4;
+          shader_injection.swap_chain_encoding_color_space = is_hdr10 ? 1.f : 0.f;
+          settings.push_back(setting);
+        }
+
+    renodx::mods::swapchain::swap_chain_upgrade_targets.push_back({
           .old_format = reshade::api::format::r8g8b8a8_typeless,
           .new_format = reshade::api::format::r16g16b16a16_float,
-          .ignore_size = true,
           .use_resource_view_cloning = true,
-          .use_resource_view_hot_swap = true,
-      });
-      renodx::mods::swapchain::swap_chain_upgrade_targets.push_back({
-          .old_format = reshade::api::format::r8g8b8a8_typeless,
-          .new_format = reshade::api::format::r16g16b16a16_float,
+          .usage_include = reshade::api::resource_usage::render_target,
       });
 
-      reshade::register_event<reshade::addon_event::init_swapchain>(OnInitSwapchain);
+        initialized = true;
+      }
 
       break;
     case DLL_PROCESS_DETACH:
-      reshade::unregister_event<reshade::addon_event::init_swapchain>(OnInitSwapchain);
+      reshade::unregister_event<reshade::addon_event::present>(OnPresent);
       reshade::unregister_addon(h_module);
       break;
   }
 
   renodx::utils::settings::Use(fdw_reason, &settings, &OnPresetOff);
-
   renodx::mods::swapchain::Use(fdw_reason, &shader_injection);
-
   renodx::mods::shader::Use(fdw_reason, custom_shaders, &shader_injection);
 
   return TRUE;
 }
+
