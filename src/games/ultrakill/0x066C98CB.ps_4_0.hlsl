@@ -1,10 +1,19 @@
-#include "../common.hlsl"
-
+// ---- Created with 3Dmigoto v1.3.16 on Thu Apr 02 14:27:42 2026
 Texture2D<float4> t0 : register(t0);
+
 SamplerState s0_s : register(s0);
-cbuffer cb0 : register(b0){
+
+cbuffer cb0 : register(b0)
+{
   float4 cb0[4];
 }
+
+
+
+
+// 3Dmigoto declarations
+#define cmp -
+
 
 void main(
   float4 v0 : SV_POSITION0,
@@ -28,12 +37,6 @@ void main(
   o0.xyz = r0.xyz * r0.www;
   o0.w = r0.w;
   o0.w = saturate(o0.w);
-  if(injectedData.rolloffUI == 1.f){
-    o0.xyz = injectedData.gammaSpace != 0.f ? renodx::color::srgb::DecodeSafe(o0.xyz) : o0.xyz;
-    o0.xyz = rolloff(o0.xyz, 0.85f, true);
-    o0.xyz = injectedData.gammaSpace != 0.f ? renodx::color::srgb::EncodeSafe(o0.xyz) : o0.xyz;
-  } else if(injectedData.rolloffUI == 2.f){
-    o0.xyz = saturate(o0.xyz);
-  }
+  o0.xyz = saturate(o0.xyz);
   return;
 }
