@@ -364,18 +364,18 @@ const std::unordered_map<std::string, reshade::api::format> UPGRADE_TARGETS = {
 };
 
 void OnPresetOff() {
-  renodx::utils::settings::UpdateSetting("toneMapType", 0.f);
-  renodx::utils::settings::UpdateSetting("toneMapPeakNits", 203.f);
-  renodx::utils::settings::UpdateSetting("toneMapGameNits", 203.f);
-  renodx::utils::settings::UpdateSetting("toneMapUINits", 203.f);
-  renodx::utils::settings::UpdateSetting("toneMapGammaCorrection", 0);
-  renodx::utils::settings::UpdateSetting("colorGradeExposure", 1.f);
-  renodx::utils::settings::UpdateSetting("colorGradeHighlights", 50.f);
-  renodx::utils::settings::UpdateSetting("colorGradeShadows", 50.f);
-  renodx::utils::settings::UpdateSetting("colorGradeContrast", 50.f);
-  renodx::utils::settings::UpdateSetting("colorGradeSaturation", 50.f);
-  renodx::utils::settings::UpdateSetting("colorGradeLUTStrength", 100.f);
-  renodx::utils::settings::UpdateSetting("colorGradeLUTScaling", 0.f);
+  // renodx::utils::settings::UpdateSetting("toneMapType", 0.f);
+  // renodx::utils::settings::UpdateSetting("toneMapPeakNits", 203.f);
+  // renodx::utils::settings::UpdateSetting("toneMapGameNits", 203.f);
+  // renodx::utils::settings::UpdateSetting("toneMapUINits", 203.f);
+  // renodx::utils::settings::UpdateSetting("toneMapGammaCorrection", 0);
+  // renodx::utils::settings::UpdateSetting("colorGradeExposure", 1.f);
+  // renodx::utils::settings::UpdateSetting("colorGradeHighlights", 50.f);
+  // renodx::utils::settings::UpdateSetting("colorGradeShadows", 50.f);
+  // renodx::utils::settings::UpdateSetting("colorGradeContrast", 50.f);
+  // renodx::utils::settings::UpdateSetting("colorGradeSaturation", 50.f);
+  // renodx::utils::settings::UpdateSetting("colorGradeLUTStrength", 100.f);
+  // renodx::utils::settings::UpdateSetting("colorGradeLUTScaling", 0.f);
 }
 
 void OnPresent(reshade::api::command_queue* queue,
