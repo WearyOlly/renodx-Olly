@@ -36,7 +36,7 @@ void main(
   r0.xyzw = r1.xyzw * r0.xyzw;
   o0.xyz = r0.xyz * r0.www;
   o0.w = r0.w;
-  o0.w = saturate(o0.w);
-  o0.xyz = saturate(o0.xyz);
+  o0.w = o0.w;
+  o0.xyz = o0.xyz;
   return;
 }
