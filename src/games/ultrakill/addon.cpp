@@ -442,7 +442,7 @@ BOOL APIENTRY DllMain(HMODULE h_module, DWORD fdw_reason, LPVOID lpv_reserved) {
           .old_format = reshade::api::format::r8g8b8a8_typeless,
           .new_format = reshade::api::format::r16g16b16a16_float,
           .use_resource_view_cloning = true,
-          .usage_include = reshade::api::resource_usage::render_target,
+         // .usage_include = reshade::api::resource_usage::render_target,
       });
 
         initialized = true;
