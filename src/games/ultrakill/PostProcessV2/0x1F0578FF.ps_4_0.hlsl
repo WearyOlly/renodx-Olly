@@ -1,4 +1,6 @@
 // ---- Created with 3Dmigoto v1.3.16 on Thu Apr 02 14:27:42 2026
+#include "../tonemap.hlsl"
+
 Texture2D<float4> t1 : register(t1);
 
 Texture2D<float4> t0 : register(t0);
@@ -11,8 +13,6 @@ cbuffer cb0 : register(b0)
 {
   float4 cb0[7];
 }
-
-
 
 
 // 3Dmigoto declarations2222
@@ -56,12 +56,31 @@ void main(
   
   // unsafe POW fix part 1 end
 
+  // tonemap part 1
+
+  if (injectedData.toneMapType == 0.f) {
+    r0.xyz = saturate(r0.xyz);
+  }
+  if (injectedData.tonemapCheck == 1.f && (injectedData.count2Old == injectedData.count2New)) {
+    r0.xyz = applyUserNoTonemap(r0.xyz);
+  }
+
+  // tonemap part 1 end
+
   r0.xyz = log2(r0.xyz);
   r0.w = -cb0[6].w * 0.5 + 1;
   r0.w = r0.w + r0.w;
   r0.w = max(0.00999999978, r0.w);
   r0.xyz = r0.www * r0.xyz;
   o0.xyz = exp2(r0.xyz);
+
+  // tonemap part 2
+  
+  if (injectedData.countOld == injectedData.countNew) {
+    o0.xyz = PostToneMapScale(o0.xyz);
+  }
+
+  // tone map part 2 end
 
   // unsafe POW fix part 2
 
