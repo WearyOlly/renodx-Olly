@@ -33,7 +33,6 @@
 // #define RENODX_SWAP_CHAIN_CLAMP_COLOR_SPACE    color::convert::COLOR_SPACE_UNKNOWN
 // #define RENODX_SWAP_CHAIN_ENCODING             ENCODING_SCRGB
 // #define RENODX_SWAP_CHAIN_ENCODING_COLOR_SPACE color::convert::COLOR_SPACE_BT709
-#define RENODX_TONE_MAP_CLAMP_PEAK             -1
 
 // Must be 32bit aligned
 // Should be 4x32
@@ -64,7 +63,7 @@ struct ShaderInjectData {
   float intermediate_color_space;
   float swap_chain_decoding;
   float swap_chain_gamma_correction;
-  //  float swap_chain_decoding_color_space;
+  // float swap_chain_decoding_color_space;
   float swap_chain_custom_color_space;
   // float swap_chain_scaling_nits;
   // float swap_chain_clamp_nits;
@@ -110,7 +109,7 @@ cbuffer shader_injection : register(b13) {
 // #define RENODX_SWAP_CHAIN_DECODING_COLOR_SPACE shader_injection.swap_chain_decoding_color_space
 #define RENODX_SWAP_CHAIN_CUSTOM_COLOR_SPACE shader_injection.swap_chain_custom_color_space
 // #define RENODX_SWAP_CHAIN_SCALING_NITS         shader_injection.swap_chain_scaling_nits
-// #define RENODX_SWAP_CHAIN_CLAMP_NITS           shader_injection.swap_chain_clamp_nits
+#define RENODX_SWAP_CHAIN_CLAMP_NITS           10000
 #define RENODX_SWAP_CHAIN_CLAMP_COLOR_SPACE    shader_injection.swap_chain_clamp_color_space
 #define RENODX_SWAP_CHAIN_ENCODING             shader_injection.swap_chain_encoding
 #define RENODX_SWAP_CHAIN_ENCODING_COLOR_SPACE shader_injection.swap_chain_encoding_color_space
