@@ -1,4 +1,5 @@
 // ---- Created with 3Dmigoto v1.3.16 on Thu Apr 02 14:27:42 2026
+#include "..\..\shared.h"
 Texture2D<float4> t2 : register(t2);
 
 Texture2D<float4> t1 : register(t1);
@@ -154,6 +155,16 @@ void main(
   o0.rgb = signs * o0.rgb;
 
   // unsafe POW fix part 2 end
+
+  // tonemap pass
+  o0.rgb = renodx::color::srgb::DecodeSafe(o0.rgb);
+  if (RENODX_TONE_MAP_TYPE != 0) {
+    o0.rgb = renodx::draw::ToneMapPass(o0.rgb);
+    o0.rgb = renodx::draw::RenderIntermediatePass(o0.rgb);
+  } else {
+    o0.rgb = saturate(o0.rgb);
+    o0.rgb = renodx::draw::RenderIntermediatePass(o0.rgb);
+  }
 
 
   o0.w = 1;

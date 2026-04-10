@@ -68,6 +68,7 @@ void main(
   o0.rgb = signs * o0.rgb;
   
   // unsafe POW fix part 2 end
+  
   // tonemap pass
   o0.rgb = renodx::color::srgb::DecodeSafe(o0.rgb);
   if (RENODX_TONE_MAP_TYPE != 0) {
