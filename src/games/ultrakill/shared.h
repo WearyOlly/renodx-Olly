@@ -87,13 +87,13 @@ cbuffer shader_injection : register(b13) {
 #define RENODX_DIFFUSE_WHITE_NITS            shader_injection.diffuse_white_nits
 #define RENODX_GRAPHICS_WHITE_NITS           shader_injection.graphics_white_nits
 #define RENODX_GAMMA_CORRECTION              GAMMA_CORRECTION_GAMMA_2_2
-#define RENODX_TONE_MAP_PER_CHANNEL          0.f
-#define RENODX_TONE_MAP_WORKING_COLOR_SPACE  -1.f
+#define RENODX_TONE_MAP_PER_CHANNEL          1.f
+#define RENODX_TONE_MAP_WORKING_COLOR_SPACE  color::convert::COLOR_SPACE_BT2020
 #define RENODX_TONE_MAP_HUE_PROCESSOR        shader_injection.tone_map_hue_processor
-#define RENODX_TONE_MAP_HUE_CORRECTION       0.f
-#define RENODX_TONE_MAP_HUE_SHIFT            0.f
-#define RENODX_TONE_MAP_CLAMP_COLOR_SPACE    2.f
-#define RENODX_TONE_MAP_CLAMP_PEAK           2.f
+#define RENODX_TONE_MAP_HUE_CORRECTION       1.f
+#define RENODX_TONE_MAP_HUE_SHIFT            0.75f
+#define RENODX_TONE_MAP_CLAMP_COLOR_SPACE    color::convert::COLOR_SPACE_BT2020
+#define RENODX_TONE_MAP_CLAMP_PEAK           color::convert::COLOR_SPACE_BT2020
 #define RENODX_TONE_MAP_EXPOSURE             shader_injection.tone_map_exposure
 #define RENODX_TONE_MAP_HIGHLIGHTS           shader_injection.tone_map_highlights
 #define RENODX_TONE_MAP_SHADOWS              shader_injection.tone_map_shadows
@@ -110,11 +110,11 @@ cbuffer shader_injection : register(b13) {
 #define RENODX_SWAP_CHAIN_CUSTOM_COLOR_SPACE 0.f
 // #define RENODX_SWAP_CHAIN_SCALING_NITS         shader_injection.swap_chain_scaling_nits
 // #define RENODX_SWAP_CHAIN_CLAMP_NITS           99999
-#define RENODX_SWAP_CHAIN_CLAMP_COLOR_SPACE    0.f
+#define RENODX_SWAP_CHAIN_CLAMP_COLOR_SPACE    color::convert::COLOR_SPACE_BT2020
 #define RENODX_SWAP_CHAIN_ENCODING             ENCODING_SCRGB
 #define RENODX_SWAP_CHAIN_ENCODING_COLOR_SPACE color::convert::COLOR_SPACE_BT709
 #define RENODX_RENO_DRT_TONE_MAP_METHOD        renodx::tonemap::renodrt::config::tone_map_method::HERMITE_SPLINE
-// #define RENODX_RENO_DRT_WHITE_CLIP 4.f
+// #define RENODX_RENO_DRT_WHITE_CLIP 8.f
 
 #include "../../shaders/renodx.hlsl"
 
