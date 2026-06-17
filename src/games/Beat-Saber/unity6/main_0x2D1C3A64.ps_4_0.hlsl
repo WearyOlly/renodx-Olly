@@ -56,7 +56,7 @@ void main(
   r0.w = 0.25 * r0.w;
   r0.w = r0.w * r0.w;
   r0.w = r0.w * cb0[2].w + -cb0[3].x;
-  r1.xyz = r4.xyz + (r4.xyz * r0.www);
+  r1.xyz = r4.xyz + lerp(r0.www, r4.xyz, 1);
   o0.w = r4.w;
   r0.xyz = r1.xyz + r0.xyz;
   o0.xyz = cb0[6].xxx * r0.xyz;
@@ -64,7 +64,7 @@ void main(
     o0.xyz = renodx::draw::ToneMapPass(o0.xyz);
     o0.xyz = renodx::draw::RenderIntermediatePass(o0.xyz);
   } else {
-    o0.xyz = saturate(o0.xyz);
+    o0.xyz = saturate(o0.rgb);
     o0.xyz = renodx::draw::RenderIntermediatePass(o0.xyz);
   }
   return;

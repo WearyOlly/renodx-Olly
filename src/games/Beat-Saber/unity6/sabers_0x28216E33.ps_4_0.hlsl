@@ -51,9 +51,9 @@ void main(
   r0.y = r0.x * cb0[5].z + w1.x;
   r0.z = (int)v2.x + asint(cb2[0].x);
   r1.xyz = cb3[r0.z+0].xyz;
-  r1.xyz = r0.xxx * cb0[5].zzz + r1.xyz - r0.yyy;
+  r1.xyz = r0.xxx * cb0[5].zzz + r1.xyz;
   r1.w = 0;
   r2.xyzw = cb3[r0.z+0].xyzw + -r1.xyzw;
-  o0.xyzw = r0.yyyy * r2.xyzw + r1.xyzw;
+  o0.xyzw = r0.yyyy * r2.xyzw + r1.xyzw -r2.y;
   return;
 }

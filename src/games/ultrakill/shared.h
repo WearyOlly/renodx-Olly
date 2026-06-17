@@ -88,7 +88,6 @@ cbuffer shader_injection : register(b13) {
 #define RENODX_DIFFUSE_WHITE_NITS            shader_injection.diffuse_white_nits
 #define RENODX_GRAPHICS_WHITE_NITS           shader_injection.graphics_white_nits
 #define RENODX_GAMMA_CORRECTION              GAMMA_CORRECTION_GAMMA_2_2
-// #define RENODX_TONE_MAP_PER_CHANNEL          0.f
 #define RENODX_TONE_MAP_WORKING_COLOR_SPACE  2.f
 #define RENODX_TONE_MAP_HUE_PROCESSOR        1.f
 #define RENODX_TONE_MAP_HUE_CORRECTION       1.f
