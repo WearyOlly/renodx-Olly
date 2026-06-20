@@ -1,4 +1,4 @@
-// ---- Created with 3Dmigoto v1.3.2 on Mon Jun 15 09:06:00 2026
+// ---- Created with 3Dmigoto v1.3.2 on Sat Jun 20 19:20:41 2026
 Texture2D<float4> t0 : register(t0);
 
 SamplerState s0_s : register(s0);
@@ -20,7 +20,7 @@ cbuffer cb1 : register(b1)
 
 cbuffer cb0 : register(b0)
 {
-  float4 cb0[9];
+  float4 cb0[6];
 }
 
 
@@ -43,10 +43,9 @@ void main(
   uint4 bitmask, uiDest;
   float4 fDest;
 
-  r0.x = cb1[0].x + cb0[8].x;
-  r0.xy = cb0[5].xy * r0.xx;
-  r0.zw = v1.xy * cb0[4].xy + cb0[4].zw;
-  r0.xy = r0.xy * cb0[4].xy + r0.zw;
+  r0.xy = v1.xy * cb0[4].xy + cb0[4].zw;
+  r0.zw = cb1[0].xx * cb0[5].xy;
+  r0.xy = r0.zw * cb0[4].xy + r0.xy;
   r0.xyzw = t0.Sample(s0_s, r0.xy).xyzw;
   r0.y = r0.x * cb0[5].z + w1.x;
   r0.z = (int)v2.x + asint(cb2[0].x);

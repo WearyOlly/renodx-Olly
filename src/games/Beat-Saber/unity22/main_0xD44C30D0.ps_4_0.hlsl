@@ -56,7 +56,8 @@ void main(
   r0.w = 0.25 * r0.w;
   r0.w = r0.w * r0.w;
   r0.w = r0.w * cb0[2].w + -cb0[3].x;
-  r1.xyz = r4.xyz + lerp(r0.www, r4.xyz, 1);
+  // r1.xyz = r4.xyz + lerp(r0.www, r4.xyz, 1);
+  r1.xyz = r4.xyz + (r4.xyz * r0.www);
   r4.xyz = r1.xyz + r0.xyz;
   o0.xyzw = cb0[6].xxxx * r4.xyzw;
   if (RENODX_TONE_MAP_TYPE != 0) {
