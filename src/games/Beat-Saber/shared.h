@@ -42,6 +42,7 @@ struct ShaderInjectData {
   float graphics_white_nits;
   float tone_map_type;
   float custom_flip_uv_y;
+  // float bs_bloom_white_blend;
 };
 
 #ifndef __cplusplus
@@ -87,6 +88,8 @@ cbuffer shader_injection : register(b13) {
 #define RENODX_RENO_DRT_TONE_MAP_METHOD        renodx::tonemap::renodrt::config::tone_map_method::NEUTWO
 #define RENODX_RENO_DRT_SCALING_METHOD        1.f
 #define RENODX_RENO_DRT_WHITE_CLIP 1.f
+// #define RENODX_INTERMEDIATE_ENCODING         0.f
+// #define RENODX_BS_BLOOM_WHITE_BLEND shader_injection.bs_bloom_white_blend
 
 
 #include "../../shaders/renodx.hlsl"

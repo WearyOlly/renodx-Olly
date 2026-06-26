@@ -57,8 +57,14 @@ void main(
   r0.w = r0.w * r0.w;
   r0.w = r0.w * cb0[2].w + -cb0[3].x;
   // r1.xyz = r4.xyz + lerp(r0.www, r4.xyz, 1);
-  r1.xyz = r4.xyz + (r4.xyz * r0.www);
-  r4.xyz = r1.xyz + r0.xyz;
+  // r1.xyz = r4.xyz + r0.xyzw;
+  if (RENODX_TONE_MAP_TYPE != 0) {
+    r1.xyz = r4.xyz + r0.www;
+  } else {
+    r1.xyz = saturate(r4.xyz + r0.www);
+  }
+  // r4.xyz = r1.xyz + lerp(r0.xyz, r0.w, RENODX_BS_BLOOM_WHITE_BLEND) + (r0.w * RENODX_BS_BLOOM_WHITE_BLEND);
+  // r4.xyz = r1.xyz + ((r0.w * (1 - RENODX_BS_BLOOM_WHITE_BLEND)) * r0.xyz) + lerp(r0.xyz, r0.w, RENODX_BS_BLOOM_WHITE_BLEND);
   o0.xyzw = cb0[6].xxxx * r4.xyzw;
   if (RENODX_TONE_MAP_TYPE != 0) {
     o0.xyz = renodx::draw::ToneMapPass(o0.xyz);

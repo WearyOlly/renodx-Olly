@@ -81,7 +81,7 @@ renodx::utils::settings::Settings settings = {
         .label = "Tone Mapper",
         .section = "Tone Mapping",
         .tooltip = "Sets the tone mapper type",
-        .labels = {"Vanilla", "RenoDRT"},
+        .labels = {"Vanilla", "Neutwo"},
         .parse = [](float value) { return value * 3.f; },
         .is_visible = []() { return current_settings_mode >= 1; },
     },
@@ -92,6 +92,7 @@ void OnPresetOff() {
   renodx::utils::settings::UpdateSetting("toneMapPeakNits", 203.f);
   renodx::utils::settings::UpdateSetting("toneMapGameNits", 203.f);
   renodx::utils::settings::UpdateSetting("toneMapUINits", 203.f);
+  renodx::utils::settings::UpdateSetting("BsBloomWhiteBlend", 100.f);
   //   renodx::utils::settings::UpdateSetting("toneMapGammaCorrection", 0);
   //   renodx::utils::settings::UpdateSetting("colorGradeExposure", 1.f);
   //   renodx::utils::settings::UpdateSetting("colorGradeHighlights", 50.f);
