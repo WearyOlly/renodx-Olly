@@ -1,5 +1,6 @@
-// ---- Created with 3Dmigoto v1.3.16 on Mon Feb 02 14:02:07 2026
+// ---- Created with 3Dmigoto v1.3.2 on Sun Jun 28 11:17:42 2026
 #include "../shared.h"
+
 Texture2D<float4> t0 : register(t0);
 
 SamplerState s0_s : register(s0);
@@ -14,6 +15,8 @@ cbuffer cb0 : register(b0)
 
 // 3Dmigoto declarations
 #define cmp -
+Texture1D<float4> IniParams : register(t120);
+Texture2D<float4> StereoParams : register(t125);
 
 
 void main(
@@ -22,9 +25,8 @@ void main(
   float4 v2 : COLOR2,
   float4 v3 : TEXCOORD0,
   float4 v4 : TEXCOORD1,
-  float4 v5 : TEXCOORD2,
-  float4 v6 : TEXCOORD9,
-  float3 v7 : TEXCOORD10,
+  float3 v5 : TEXCOORD2,
+  float v6 : SV_ClipDistance0,
   out float4 o0 : SV_Target0,
   out float2 o1 : SV_Target1)
 {
@@ -40,12 +42,10 @@ void main(
   o0.xyz = v2.www * r0.xyz + v2.xyz;
   r0.x = cb0[10].x * r0.w;
   r0.y = r0.w * cb0[10].x + -9.99999975e-005;
-  r0.y = saturate(ceil(r0.y));
-  o1.y = cb0[7].z * r0.y;
+  r0.y = ceil(r0.y);
+  o1.y = cb0[3].z * r0.y;
   o0.w = r0.x;
-  r0.x = cb0[7].x ? 0.5 : 0;
-  o1.x = max(cb0[7].y, r0.x);
-
+  o1.x = 0;
   if (RENODX_TONE_MAP_TYPE != 0.f) {
     o0.rgb = float3(
         renodx::color::grade::Highlights(o0.r, RENODX_RENO_ULTRAKILL_ITM_STRENGTH),

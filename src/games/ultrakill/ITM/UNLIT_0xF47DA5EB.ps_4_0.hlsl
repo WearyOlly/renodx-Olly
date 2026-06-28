@@ -44,11 +44,10 @@ void main(
   o0.xyz = r0.xxx ? r1.xyz : r0.yzw;
 
   if (RENODX_TONE_MAP_TYPE != 0.f) {
-    float highlight_strength = 1.33f;
     o0.rgb = float3(
-        renodx::color::grade::Highlights(o0.r, highlight_strength),
-        renodx::color::grade::Highlights(o0.g, highlight_strength),
-        renodx::color::grade::Highlights(o0.b, highlight_strength)
+        renodx::color::grade::Highlights(o0.r, RENODX_RENO_ULTRAKILL_ITM_STRENGTH),
+        renodx::color::grade::Highlights(o0.g, RENODX_RENO_ULTRAKILL_ITM_STRENGTH),
+        renodx::color::grade::Highlights(o0.b, RENODX_RENO_ULTRAKILL_ITM_STRENGTH)
     );
   };
 

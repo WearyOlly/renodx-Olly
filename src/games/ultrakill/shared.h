@@ -40,7 +40,6 @@ struct ShaderInjectData {
   float peak_white_nits;
   float diffuse_white_nits;
   float graphics_white_nits;
-  // float color_grade_strength;
   float tone_map_type;
   float tone_map_exposure;
   float tone_map_highlights;
@@ -49,29 +48,9 @@ struct ShaderInjectData {
   float tone_map_saturation;
   float tone_map_highlight_saturation;
   float tone_map_blowout;
-  // float tone_map_flare;
-  // float tone_map_hue_correction;
-  // float tone_map_hue_shift;
-  // float tone_map_working_color_space;
-  //float tone_map_clamp_color_space;
-  // float tone_map_clamp_peak;
-  // float tone_map_hue_processor;
-  // float tone_map_per_channel;
-  // float gamma_correction;
   float intermediate_scaling;
-  // float reno_drt_scaling_method;
-  // float intermediate_encoding;
-  // float intermediate_color_space;
-  // float swap_chain_decoding;
-  // float swap_chain_gamma_correction;
-  // float swap_chain_decoding_color_space;
-  // float swap_chain_custom_color_space;
-  // float swap_chain_scaling_nits;
-  // float swap_chain_clamp_nits;
-  // float swap_chain_clamp_color_space;
-  // float swap_chain_encoding;
-  // float swap_chain_encoding_color_space;
   float custom_flip_uv_y;
+  float uk_itm_Strength;
 };
 
 #ifndef __cplusplus
@@ -117,7 +96,7 @@ cbuffer shader_injection : register(b13) {
 #define RENODX_RENO_DRT_TONE_MAP_METHOD        renodx::tonemap::renodrt::config::tone_map_method::NEUTWO
 #define RENODX_RENO_DRT_SCALING_METHOD        2.f
 #define RENODX_RENO_DRT_WHITE_CLIP 5.5f
-
+#define RENODX_RENO_ULTRAKILL_ITM_STRENGTH shader_injection.uk_itm_Strength
 #include "../../shaders/renodx.hlsl"
 
 #endif
