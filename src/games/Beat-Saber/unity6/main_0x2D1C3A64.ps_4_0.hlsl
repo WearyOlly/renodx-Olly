@@ -57,7 +57,10 @@ void main(
   r0.w = r0.w * r0.w;
   r0.w = r0.w * cb0[2].w + -cb0[3].x;
   if (RENODX_TONE_MAP_TYPE != 0) {
-    r1.xyz = r4.xyz + r0.www;
+    float3 splitcolor = RGBtoHCV(r4.xyz);
+    float3 thehue = HUEtoRGB(splitcolor.x);
+    float3 newhuesat = renodx::color::correct::ChrominanceOKLab(thehue, r4.xyz);
+    r1.xyz = r4.xyz + (newhuesat * r0.www);
   } else {
     r1.xyz = saturate(r4.xyz + r0.www);
   }

@@ -87,12 +87,12 @@ cbuffer shader_injection : register(b13) {
 #define RENODX_SWAP_CHAIN_ENCODING_COLOR_SPACE color::convert::COLOR_SPACE_BT709
 #define RENODX_RENO_DRT_TONE_MAP_METHOD        renodx::tonemap::renodrt::config::tone_map_method::NEUTWO
 #define RENODX_RENO_DRT_SCALING_METHOD        1.f
-#define RENODX_RENO_DRT_WHITE_CLIP 1.f
+// #define RENODX_RENO_DRT_WHITE_CLIP 5.5f
 // #define RENODX_INTERMEDIATE_ENCODING         0.f
-// #define RENODX_BS_BLOOM_WHITE_BLEND shader_injection.bs_bloom_white_blend
 
 
 #include "../../shaders/renodx.hlsl"
+#include "./hsv_splitnmerge.hlsli"
 
 #endif
 

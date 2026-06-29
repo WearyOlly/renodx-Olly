@@ -20,13 +20,10 @@
 namespace {
 
 ShaderInjectData shader_injection;
-
 renodx::mods::shader::CustomShaders custom_shaders = {
-    // CustomShaderEntry(0x00000000),
-    // CustomSwapchainShader(0x00000000),
-    // BypassShaderEntry(0x00000000),
     __ALL_CUSTOM_SHADERS,
-};
+  };
+
 
 float current_settings_mode = 0;
 
